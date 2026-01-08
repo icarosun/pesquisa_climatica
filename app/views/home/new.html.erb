@@ -1,0 +1,19 @@
+<h1>Informe seu código de acesso</h1>
+
+<%= form_with url: "/validar-codigo", method: :post, local: true do %>
+  <div>
+    <%= label_tag :codigo, "Código de acesso" %><br>
+    <%= text_field_tag :codigo %>
+  </div>
+
+  <br>
+
+  <%= submit_tag "Continuar" %>
+<% end %>
+
+<% if flash[:alert] %>
+  <p style="color: red;">
+    <%= flash[:alert] %>
+  </p>
+<% end %>
+
