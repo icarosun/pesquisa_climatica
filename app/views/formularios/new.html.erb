@@ -1,7 +1,7 @@
-<%= form_with url: formularios_path, method: :post do %>
+<%= form_with url: formularios_path, method: :post, local: true, data: { turbo: false } do %>
   <%= hidden_field_tag :codigo, @codigo %>
 
-  <% PERGUNTAS.each do |topico, perguntas| %>
+  <% @perguntas.each do |topico, perguntas| %>
     <h2><%= topico %></h2>
     <% perguntas.each do |numero, texto| %>
       <p><strong><%= "#{numero}. #{texto}" %></strong></p>
