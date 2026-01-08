@@ -5,7 +5,7 @@ class FormulariosController < ApplicationController
   end
 
   def create
-    respostas = params[:respostas]&.transform_values(&:to_i)
+    respostas = respostas_array
     codigo = params[:codigo]
 
     resposta = Resposta.new(
@@ -23,4 +23,12 @@ class FormulariosController < ApplicationController
     end
   end
 
+  def respostas_array
+    return [] unless params[:respostas].present?
+
+    params[:respostas]
+      .to_unsafe_h
+      .sort_by { |k, _| k.to_i }
+      .map { |_, v| v.to_i } 
+  end
 end
