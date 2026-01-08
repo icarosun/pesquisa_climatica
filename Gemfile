@@ -33,13 +33,13 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 #Add mongoid
-gem 'mongoid'
+gem "mongoid"
 
 #add dotenv
-gem 'dotenv-rails'
+gem "dotenv-rails"
 
 #Add mongo
-gem install mongo -v '~> 2'
+gem "mongo", "~> 2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
