@@ -1,0 +1,35 @@
+<h1>Admin – Códigos</h1>
+
+<form method="post" action="/admin/codigos">
+  <input type="hidden" name="token" value="<%= params[:token] %>">
+  <label>Quantidade:</label>
+  <input type="number" name="quantidade" value="10" min="1">
+  <button type="submit">Gerar códigos</button>
+</form>
+
+<hr>
+
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Status</th>
+      <th>Criado em</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @codigos.each do |codigo| %>
+      <tr>
+        <td><strong><%= codigo.codigo %></strong></td>
+        <td>
+          <% if codigo.utilizado %>
+            ❌ Usado
+          <% else %>
+            ✅ Livre
+          <% end %>
+        </td>
+        <td><%= codigo.created_at&.strftime("%d/%m/%Y %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
