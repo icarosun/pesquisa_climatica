@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   root "home#new"
 
   post "/validar-codigo", to: "home#create"
-  get "/formulario", to: "formulario#new"
+  # get "/formulario", to: "formulario#new"
+
+  resources :formularios, only: [:new, :create]
 
   namespace :admin do
     resources :codigos, only: [:index, :create]

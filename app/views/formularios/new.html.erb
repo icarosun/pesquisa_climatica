@@ -1,0 +1,25 @@
+<%= form_with url: formularios_path, method: :post do %>
+  <%= hidden_field_tag :codigo, @codigo %>
+
+  <% PERGUNTAS.each do |topico, perguntas| %>
+    <h2><%= topico %></h2>
+    <% perguntas.each do |numero, texto| %>
+      <p><strong><%= "#{numero}. #{texto}" %></strong></p>
+
+      <% {1=>"Concordo Plenamente", 2=>"Inclinado a Concordar", 3=>"Inclinado a Discordar", 4=>"Discordo Plenamente"}.each do |valor,label| %>
+        <label>
+          <%= radio_button_tag "respostas[#{numero}]", valor, false, required: true %>
+          <%= label %>
+        </label><br>
+      <% end %>
+      <hr>
+    <% end %>
+  <% end %>
+
+  <h3>Comentários finais</h3>
+  <%= text_area_tag :comentario_final, nil, maxlength: 50 %>
+
+  <br><br>
+  <%= submit_tag "Enviar" %>
+<% end %>
+
