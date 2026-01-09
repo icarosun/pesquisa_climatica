@@ -41,6 +41,12 @@ gem "dotenv-rails"
 #Add mongo
 gem "mongo", "~> 2"
 
+#Add bcrupt
+gem 'bcrypt', '~> 3.1.7'
+
+#add csv
+gem 'csv'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

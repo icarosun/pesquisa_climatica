@@ -1,15 +1,24 @@
 <h1>Admin – Códigos</h1>
 
-<form method="post" action="/admin/codigos">
-  <input type="hidden" name="token" value="<%= params[:token] %>">
-  <label>Quantidade:</label>
-  <input type="number" name="quantidade" value="10" min="1">
-  <button type="submit">Gerar códigos</button>
-</form>
+<div class="admin-actions">
+  <!-- Formulário de gerar códigos -->
+  <form method="post" action="/admin/codigos">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" value="10" min="1">
+    <button type="submit" class="btn btn-primary">Gerar códigos</button>
+  </form>
+
+  <!-- Botão de export CSV -->
+  <%= form_with url: export_respostas_admin_codigos_path, method: :get, data: { turbo: false }, local: true do %>
+    <%= submit_tag "Exportar respostas CSV", class: "btn btn-success" %>
+  <% end %>
+
+  </div>
 
 <hr>
 
-<table border="1" cellpadding="5">
+<table class="admin-table">
   <thead>
     <tr>
       <th>Código</th>
@@ -33,3 +42,4 @@
     <% end %>
   </tbody>
 </table>
+

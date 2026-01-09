@@ -7,13 +7,21 @@ Rails.application.routes.draw do
 
   root "home#new"
 
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logou", to: "sessions#destroy"
+
   post "/validar-codigo", to: "home#create"
   # get "/formulario", to: "formulario#new"
 
   resources :formularios, only: [:new, :create]
 
   namespace :admin do
-    resources :codigos, only: [:index, :create]
+    resources :codigos, only: [:index, :create] do
+      collection do
+        get :export_respostas
+      end
+    end
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

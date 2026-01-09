@@ -1,4 +1,7 @@
+require 'csv'
+
 class Admin::CodigosController < ApplicationController
+  before_action :authenticate_user!
   before_action :authorize_admin!
 
   def index
@@ -11,16 +14,33 @@ class Admin::CodigosController < ApplicationController
 
     Codigo.gerar(quantidade)
 
-    redirect_to admin_codigos_path(token: params[:token]), notice: "Códgios gerados com sucesso"
+    redirect_to admin_codigos_path(token: params[:token]), notice: "Códigos gerados com sucesso"
   end
 
-  private
+  def export_respostas
+    @respostas = Resposta.all.order(created_at: :asc)
 
-  def authorize_admin!
-    token = params[:token] || request.headers["X-ADMIN-TOKEN"]
-
-    unless token.present? && token == ENV["ADMIN_TOKEN"]
-      render plain: "Não autorizado", status: :unauthorized
+    if @respostas.empty?
+      redirect_to admin_codigos_path, alert: "Não há respostas para exportar."
+      return
     end
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      perguntas_total = @respostas.first.respostas.size
+      cabecalho = (1..perguntas_total).map { |i| "Q#{i.to_s.rjust(2, '0')}" }
+      cabecalho += ["Comentário Final", "Criado em"]
+
+      csv << cabecalho
+
+      @respostas.each do |r| 
+        linha = r.respostas.map(&:to_i)
+        linha += [r.comentario_final, r.created_at.strftime("%d/%m/%y %H:%M")]
+        csv << linha
+      end
+    end
+
+    send_data csv_data, 
+      filename: "respostas -#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.csv",
+      type: "text/csv"
   end
 end
