@@ -1,1 +1,1 @@
-web: bundle exec rails server -p $PORT -b 0.0.0.0 -e production
+web: bin/rails server -b 0.0.0.0 -p ${PORT:-3000}
