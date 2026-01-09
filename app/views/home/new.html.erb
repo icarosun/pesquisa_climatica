@@ -1,14 +1,21 @@
-<h1>Informe seu código de acesso</h1>
+<div class="acesso-container">
 
-<%= form_with url: "/validar-codigo", method: :post, local: true, data: { turbo: false} do %>
-  <div>
-    <%= label_tag :codigo, "Código de acesso" %><br>
-    <%= text_field_tag :codigo %>
-  </div>
+  <h1>Informe seu código de acesso</h1>
+  <p>Digite o código fornecido para continuar.</p>
 
-  <br>
+  <%= form_with url: "/validar-codigo",
+        method: :post,
+        local: true,
+        data: { turbo: false },
+        html: { class: "acesso-form" } do %>
 
-  <%= submit_tag "Continuar" %>
-<% end %>
+    <div class="campo">
+      <%= label_tag :codigo, "Código de acesso" %>
+      <%= text_field_tag :codigo, nil, required: true %>
+    </div>
 
+    <%= submit_tag "Continuar" %>
+  <% end %>
+
+</div>
 

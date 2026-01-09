@@ -1,4 +1,29 @@
-<%= form_with url: formularios_path, method: :post, local: true, data: { turbo: false } do %>
+<div class="pesquisa-clima">
+
+  <h1>ORIENTAÇÕES GERAIS</h1>
+  <p>Olá!</p>
+
+  <p>
+    A Pesquisa de Clima Organizacional tem como objetivo compreender a percepção
+    dos servidores e colaboradores sobre o ambiente de trabalho.
+    Suas respostas são <b>confidenciais e anônimas.</b>
+  </p>
+  <p>
+  Não existem respostas certas ou erradas. O mais importante é que você responda com sinceridade, de acordo com sua experiência no ambiente de trabalho.
+</p>
+
+  Em cada item, assinale apenas uma alternativa, conforme a escala abaixo:
+  <ul>
+    <li>CP – Concordo Plenamente</li>
+    <li>IC – Inclinado a Concordar</li>
+    <li>ID – Inclinado a Discordar</li>
+    <li>DP – Discordo Plenamente</li>
+  </ul>
+
+  <%= form_with url: formularios_path, method: :post, local: true,
+        data: { turbo: false },
+        html: { class: "formulario-clima" } do %>
+
   <%= hidden_field_tag :codigo, @codigo %>
 
   <% @perguntas.each do |topico, perguntas| %>
@@ -17,9 +42,17 @@
   <% end %>
 
   <h3>Comentários finais</h3>
-  <%= text_area_tag :comentario_final, nil, maxlength: 50 %>
+  <p>Utilize o espaço abaixo para registrar comentários, sugestões ou percepções que considere relevantes.
+Caso deseje relatar situações relacionadas a desrespeito, assédio moral ou outras condutas inadequadas, utilize este espaço sem necessidade de identificação.</p>
+
+  <%= text_area_tag :comentario_final, nil, maxlength: 250 %>
 
   <br><br>
-  <%= submit_tag "Enviar" %>
+
+  <h4>AS INFORMAÇÕES PRESTADAS NESTA PESQUISA SERÃO TRATADAS COM SIGILO ABSOLUTO.</h4>
+  <br><br>
+  <%= submit_tag "Enviar", class: "btn btn-success" %>
 <% end %>
+
+</div>
 
