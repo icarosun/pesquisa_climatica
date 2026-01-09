@@ -12,7 +12,7 @@ class Resposta
 
   validate :respostas_validas
   
-  PERGUNTAS_TOTAL = 10
+  PERGUNTAS_TOTAL = 45
 
   private
 
